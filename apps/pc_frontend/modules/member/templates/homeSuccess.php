@@ -15,7 +15,7 @@
 <?php slot('op_sidemenu') ?>
 <?php foreach ($sideMenuGadgets as $gadget): ?>
 <?php if ($gadget->isEnabled()): ?>
-<?php include_component($gadget->getComponentModule(), $gadget->getComponentAction(), array('gadget' => $gadget)); ?>
+<?php include_component($gadget->getComponentModule(), $gadget->getComponentAction(), array('sf_cache_key' => $sf_user->getMemberId(), 'gadget' => $gadget)); ?>
 <?php endif; ?>
 <?php endforeach; ?>
 <?php end_slot() ?>

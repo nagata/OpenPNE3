@@ -113,4 +113,23 @@ class MemberRelationship extends BaseMemberRelationship implements opAccessContr
 
     return 'everyone';
   }
+
+  public function postSave($event)
+  {
+    $this->dropCacheFriendListBox();
+  }
+
+  public function postDelete($event)
+  {
+    $this->dropCacheFriendListBox();
+  }
+
+  private function dropCacheFriendListBox()
+  {
+    if ($cache = sfContext::getInstance()->getViewCacheManager())
+    {
+      $cache->remove('@sf_cache_partial?module=friend&action=_friendListBox&sf_cache_key='.$this->getMemberIdTo());
+      $cache->remove('@sf_cache_partial?module=friend&action=_friendListBox&sf_cache_key='.$this->getMemberIdFrom());
+    }
+  }
 }
